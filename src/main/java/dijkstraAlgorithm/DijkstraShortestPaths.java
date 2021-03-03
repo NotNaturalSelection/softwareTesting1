@@ -13,20 +13,12 @@ public class DijkstraShortestPaths {
         return shortestPaths;
     }
 
-    public void setShortestPaths(Double[] shortestPaths) {
-        this.shortestPaths = shortestPaths;
-    }
-
     public int getFromValue() {
         return fromValue;
     }
 
-    public void setFromValue(int fromValue) {
-        this.fromValue = fromValue;
-    }
-
-    private Double[] shortestPaths;
-    private int fromValue;
+    private final Double[] shortestPaths;
+    private final int fromValue;
     private final LinkedHashSet<Integer> visitOrder = new LinkedHashSet<>();
 
     public DijkstraShortestPaths(Double[][] paths, int from) {
