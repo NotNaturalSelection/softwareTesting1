@@ -9,8 +9,9 @@ public class ArctgPowerSeriesTest {
     private static final Double TEST_PRECISION = 0.000000001;
     @ParameterizedTest
     @CsvFileSource(resources = "/testOk.csv")
-    public void testOk(Double value, Double precision, Double result) {
-        Assertions.assertEquals(result, ArctgPowerSeries.ofArgWithPrecision(value, precision).getResult(), precision);
+    public void testOk(Double value, Double expected) {
+        ArctgPowerSeries ps = ArctgPowerSeries.of(value);
+        Assertions.assertEquals(expected, ps.getResult(), ps.getPrecision());
     }
 
     @ParameterizedTest

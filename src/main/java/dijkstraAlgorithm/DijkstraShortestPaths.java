@@ -41,18 +41,18 @@ public class DijkstraShortestPaths {
         result[from] = 0d;
 
         visitOrder.add(from);
-        result = recount(paths, Arrays.copyOf(result, result.length), from);
+        result = recount(paths, result.clone(), from);
         int minValueIndex = findMinValueIndex(result, visitOrder, from);
 
         while (visitOrder.size() < paths.length) {
             visitOrder.add(minValueIndex);
-            result = recount(paths, Arrays.copyOf(result, result.length), minValueIndex);
+            result = recount(paths, result.clone(), minValueIndex);
             minValueIndex = findMinValueIndex(result, visitOrder, minValueIndex);
         }
         return result;
     }
 
-    private Double[] recount(Double[][] paths, Double[] result, int from){
+    private static Double[] recount(Double[][] paths, Double[] result, int from){
         for (int j = 0; j < paths.length; j++) {
             if (paths[from][j] < Double.POSITIVE_INFINITY) {
                 double countedPath = result[from] + paths[from][j];
