@@ -6,8 +6,7 @@ import java.util.Comparator;
 public class Human extends Creature {
 
     public Human() {
-        inventions = Arrays.asList("Wheel", "New York", "War");
-        preferred = Action.INVENT;
+        super(Arrays.asList("Wheel", "New York", "War"), Action.INVENT);
     }
 
     @Override

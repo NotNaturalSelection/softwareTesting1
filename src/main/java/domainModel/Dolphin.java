@@ -6,8 +6,7 @@ import java.util.Comparator;
 public class Dolphin extends Creature {
 
     public Dolphin() {
-        inventions = Collections.emptyList();
-        preferred = Action.HAVE_FUN;
+        super(Collections.emptyList(), Action.HAVE_FUN);
     }
 
     @Override

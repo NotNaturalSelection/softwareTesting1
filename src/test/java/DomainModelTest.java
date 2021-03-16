@@ -32,7 +32,7 @@ public class DomainModelTest {
         Assertions.assertArrayEquals(humanOrder.toArray(), creatures.toArray());
 
         creatures.sort(dolphin.think());
-        assert dolphin.think().compare(human, dolphin) < 0;
+        assert dolphin.think().compare(dolphin, human) > 0;
         Assertions.assertArrayEquals(dolphinOrder.toArray(), creatures.toArray());
     }
 }

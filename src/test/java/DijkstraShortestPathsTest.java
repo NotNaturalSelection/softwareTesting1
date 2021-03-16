@@ -10,6 +10,7 @@ public class DijkstraShortestPathsTest {
 
     @Test
     public void testCommonCase() {
+        int from = 0;
         LinkedHashSet<Integer> expectedOrder = new LinkedHashSet<>();
         int[] intOrder = new int[]{0, 1, 4, 2, 3};
         for (int i : intOrder) {
@@ -22,9 +23,10 @@ public class DijkstraShortestPathsTest {
                                           {50d, 40d, 20d, 0d, 30d},
                                           {10d, inf, 10d, 30d, 0d}};
         Double[] expected = new Double[]{0d, 10d, 20d, 40d, 10d};
-        DijkstraShortestPaths sp = new DijkstraShortestPaths(paths, 0);
+        DijkstraShortestPaths sp = new DijkstraShortestPaths(paths, from);
         Assertions.assertArrayEquals(expected, sp.getShortestPaths());
         Assertions.assertArrayEquals(expectedOrder.toArray(), sp.getVisitOrder().toArray());
+        assert from == sp.getFromValue();
     }
 
     @Test
@@ -35,6 +37,17 @@ public class DijkstraShortestPathsTest {
         Assertions.assertArrayEquals(expected, sp.getShortestPaths());
         DijkstraShortestPaths sp1 = new DijkstraShortestPaths(paths, 1);
         Double[] expected1 = new Double[]{10d, 0d};
+        Assertions.assertArrayEquals(expected1, sp1.getShortestPaths());
+    }
+
+    @Test
+    public void test2NodesWithZeroPaths() {
+        Double[][] paths = new Double[][]{{0d, 0d}, {0d, 0d}};
+        Double[] expected = new Double[]{0d, 0d};
+        DijkstraShortestPaths sp = new DijkstraShortestPaths(paths, 0);
+        Assertions.assertArrayEquals(expected, sp.getShortestPaths());
+        DijkstraShortestPaths sp1 = new DijkstraShortestPaths(paths, 1);
+        Double[] expected1 = new Double[]{0d, 0d};
         Assertions.assertArrayEquals(expected1, sp1.getShortestPaths());
     }
 
@@ -58,12 +71,22 @@ public class DijkstraShortestPathsTest {
     }
 
     @Test
-    public void testNegativePaths() {
+    public void testNotSymmetricInputArray() {
         Double[][] paths = new Double[][]{{0d, 10d, 30d, -50d, -10d},
                                           {inf, 0d, inf, inf, inf},
                                           {inf, inf, 0d, inf, 10d},
                                           {inf, -40d, -20d, 0d, inf},
                                           {10d, inf, 10d, 30d, 0d}};
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new DijkstraShortestPaths(paths, 0));
+    }
+
+    @Test
+    public void testNegativePaths() {
+        Double[][] paths = new Double[][]{{0d, 10d, 30d, -50d, -10d},
+                                          {10d, 0d, inf, inf, inf},
+                                          {30d, inf, 0d, -20d, 10d},
+                                          {-50d, inf, -20d, 0d, 30d},
+                                          {-10d, inf, 10d, 30d, 0d}};
         Assertions.assertThrows(IllegalArgumentException.class, () -> new DijkstraShortestPaths(paths, 0));
     }
 

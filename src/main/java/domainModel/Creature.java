@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 abstract public class Creature {
-    protected List<String> inventions;
-    protected Action preferred;
+    private final List<String> inventions;
+    private final Action preferred;
 
     public abstract Comparator<Creature> think();
 
@@ -16,6 +16,11 @@ abstract public class Creature {
 
     public Action getPreferred() {
         return preferred;
+    }
+
+    public Creature(List<String> inventions, Action preferred) {
+        this.inventions = inventions;
+        this.preferred = preferred;
     }
 
     @Override

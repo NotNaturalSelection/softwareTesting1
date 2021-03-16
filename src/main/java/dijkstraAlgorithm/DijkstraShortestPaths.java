@@ -67,17 +67,19 @@ public class DijkstraShortestPaths {
     }
 
     private void validateInput(Double[][] paths, int from) {
-        if (from < 0) {
-            throw new IllegalArgumentException("From param must be greater or equal to 0");
+        if (from < 0 || from > paths.length) {
+            throw new IllegalArgumentException("From param must be greater or equal to 0 and less or equal to size of input array");
         }
         if (paths.length == 0) {
             throw new IllegalArgumentException("Paths size must be greater or equal to 0");
         }
-        for (int i = 0; i < paths.length; i++) {
-            if (paths[i].length < paths.length) {
+        for (Double[] path : paths) {
+            if (path.length != paths.length) {
                 throw new IllegalArgumentException("Inner arrays of paths should have the same length as the outer one");
             }
-            for (int j = 0; j <paths[i].length; j++) {
+        }
+        for (int i = 0; i < paths.length; i++) {
+            for (int j = 0; j < paths[i].length; j++) {
                 if (paths[i][j] < 0) {
                     throw new IllegalArgumentException("Paths must not be negative");
                 }
